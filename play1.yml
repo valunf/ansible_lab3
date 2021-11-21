@@ -1,5 +1,5 @@
 ---
-- name: Install apache2
+- name: Install apache2 and vsftpd
   hosts: all
   roles:
     - apache2
