@@ -23,4 +23,4 @@
     service: "{{ item }}"
     permanent: yes
     state: enabled
-  with_items: {{ ports_to_open }}
+  with_items: "{{ ports_to_open }}"
