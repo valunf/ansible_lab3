@@ -3,4 +3,4 @@
 - name: reload_vsftpd
   service:
     name: vsftpd
-    state: reloaded
+    state: restarted
