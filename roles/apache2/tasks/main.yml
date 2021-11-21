@@ -1,0 +1,26 @@
+---
+# tasks file for apache2
+
+- name: Install {{ name_of_service }}
+  package: 
+    name: "{{ name_of_service }}"
+    state: present
+
+- name: Start {{ name_of_service }}
+  service:
+    name: "{{ name_of_service }}"
+    enabled: yes
+    state: started
+
+- name: Create index.html
+  template:
+    src: index.html.j2
+    dest: "{{ index_path }}"
+  notify: restart_apache
+
+- name: Open ports via firewalld
+  firewalld:
+    service: "{{ item }}"
+    permanent: yes
+    state: enabled
+  with_items: {{ ports_to_open }}

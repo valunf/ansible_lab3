@@ -1,0 +1,7 @@
+---
+# vars file for apache2
+ports_to_open:
+  - http
+  - https
+name_of_service: httpd
+index_path: "/var/www/html/index.html"

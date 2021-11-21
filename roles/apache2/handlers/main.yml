@@ -1,0 +1,6 @@
+---
+# handlers file for apache2
+- name: restart_apache
+  service:
+    name: "{{ name_of_service }}"
+    state: restarted
