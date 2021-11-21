@@ -1,2 +1,47 @@
 ---
 # tasks file for vsftpd
+- name: Install vsftpd
+  package:
+    name: vsftpd
+    state: present
+
+- name: Create dir {{vsftpd_anon_root}}
+  file:
+    path: "{{vsftpd_anon_root}}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Create dir "{{vsftpd_anon_root}}/upload"
+  file:
+    path: "{{vsftpd_anon_root}}/upload"
+    state: directory
+    owner: ftp
+    group: ftp
+    mode: "0644"
+
+- name: Open firewall ports
+  firewalld:
+    service: ftp
+    state: enabled
+    permanent: yes
+
+- name: Copy config
+  template:
+    dest: "{{ vsftpd_config_path }}"
+    src: vsftpd.conf.j2
+  notify: reload_vsftpd
+
+- name: Change SElinux context for  "{{vsftpd_anon_root}}/upload"
+  sefcontext:
+    target: "{{vsftpd_anon_root}}/upload"
+    setype: "public_content_rw_t"
+    reload: True
+    state: present
+
+- name: Change SELinux boolean ftpd_anon_write
+  seboolean:
+    name: ftpd_anon_write
+    state: yes
+    persistent: yes

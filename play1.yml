@@ -3,5 +3,6 @@
   hosts: all
   roles:
     - apache2
+    - vsftpd
 
   
