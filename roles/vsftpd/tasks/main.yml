@@ -5,6 +5,11 @@
     name: vsftpd
     state: present
 
+- name: Install some dependencies for SELinux
+  package:
+    name: policycoreutils-python
+    state: present
+
 - name: Create dir {{vsftpd_anon_root}}
   file:
     path: "{{vsftpd_anon_root}}"
