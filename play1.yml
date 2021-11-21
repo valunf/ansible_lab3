@@ -1,0 +1,4 @@
+---
+- hosts: all
+  include_role:
+    name: apache2
