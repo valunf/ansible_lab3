@@ -10,21 +10,17 @@
     name: policycoreutils-python-utils
     state: present
 
-- name: Create dir {{vsftpd_anon_root}}
+- name: Create dir {{item.path}}
   file:
-    path: "{{vsftpd_anon_root}}"
+    path: "{{ item.path }}"
     state: directory
-    owner: root
-    group: root
-    mode: "0755"
-
-- name: Create dir "{{vsftpd_anon_root}}/upload"
-  file:
-    path: "{{vsftpd_anon_root}}/upload"
-    state: directory
-    owner: root
-    group: root
-    mode: "0777"
+    owner: ftp
+    mode: "{{ item.mode }}"
+  with_items:
+    - path: "{{vsftpd_anon_root}}"
+      mode: "0555"
+    - path: "{{vsftpd_anon_root}}/upload"
+      mode: "0777"
 
 - name: Open firewall ports
   firewalld:
