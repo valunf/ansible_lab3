@@ -16,7 +16,7 @@
     state: directory
     owner: root
     group: root
-    mode: "0644"
+    mode: "0755"
 
 - name: Create dir "{{vsftpd_anon_root}}/upload"
   file:
@@ -24,7 +24,7 @@
     state: directory
     owner: root
     group: root
-    mode: "0666"
+    mode: "0777"
 
 - name: Open firewall ports
   firewalld:
