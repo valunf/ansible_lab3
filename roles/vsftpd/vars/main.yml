@@ -1,0 +1,3 @@
+---
+# vars file for vsftpd
+vsftpd_config_template_path: /etc/vsftpd/vsftpd.conf
