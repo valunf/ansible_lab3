@@ -17,15 +17,21 @@
   file:
     path: "{{vsftpd_anon_root}}/upload"
     state: directory
-    owner: ftp
-    group: ftp
-    mode: "0644"
+    owner: root
+    group: root
+    mode: "0666"
 
 - name: Open firewall ports
   firewalld:
     service: ftp
     state: enabled
     permanent: yes
+
+- name: Start vsftpd
+  service:
+    name: vsftpd
+    enabled: yes
+    state: started
 
 - name: Copy config
   template:
